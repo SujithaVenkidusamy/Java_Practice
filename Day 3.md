@@ -11,7 +11,7 @@ Output: 4
 Explanation: aaba is present 4 times in txt.
 
 ## Count all Occurances of Anagaram
-```java[]
+```java []
 import java.util.*;
 public class Main {
     public static boolean araAnagram(String s1, String s2)
@@ -105,4 +105,38 @@ public class Main {
 }
 ```
 
+Given an integer n denoting number of stones. Player1 and Player2 take turns with Player1 starting first. At each turn, a player can remove 1, 3 or 4 stones from the pile. The game ends when there is no stone left in the pile and the player who made the last move wins the game. Return true if Player1 wins a game otherwise return false.
+
+Input: n = 4
+Output: Player1
+Explanation: Player1 can remove all 4 stones from the pile in the first turn.
+Input: n = 7
+Output: Player2
+Explanation: There are three possible combinations:
+Player1 removes 3 stones, leaving Player2 with 4 stones that can be removed in a single turn.
+Player1 removes 4 stones, leaving Player2 with 3 stones that can be removed in a single turn.
+Player1 removes 1 stone, then Player2 removes 4 stone, then Player1 again removes 1 stone (as no other options are available), and at last Player2 removes the last stone.
+
+## Player wins or loose
+```java []
+import java.util*;
+public class Main {
+    public static boolean canWin(int n) {
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = false;
+        for (int i = 1; i <= n; i++) {
+            if ((i - 1 >= 0 && !dp[i - 1]) || (i - 3 >= 0 && !dp[i - 3]) || (i - 4 >= 0 && !dp[i - 4])) {
+                dp[i] = true;
+            }
+        }
+        return dp[n];
+    }
+    public static void main(String[] args) {
+        int n1 = 4;
+        System.out.println("For n = " + n1 + ", Player1 wins: " + canWin(n1));  
+
+        int n2 = 7;
+        System.out.println("For n = " + n2 + ", Player1 wins: " + canWin(n2));  
+    }
+}
 ```
